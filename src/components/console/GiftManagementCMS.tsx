@@ -143,7 +143,7 @@ export const GiftManagementCMS: React.FC<GiftManagementCMSProps> = ({
                   <div>
                     <h4 className="text-xs font-bold text-white">{gift.name}</h4>
                     <span className="text-[11px] text-amber-400/90 font-mono">
-                      {gift.arabicName}
+                      {gift.subtitle || `${gift.category.toUpperCase()} TIER`}
                     </span>
                     <div className="text-[10px] text-slate-400 font-mono mt-0.5">
                       {gift.coinPrice.toLocaleString()} Coins · {gift.category.toUpperCase()}

@@ -19,6 +19,7 @@ import {
 import confetti from 'canvas-confetti';
 
 import { WebGiftAnimationOverlay, ActiveGiftBroadcast, ComboSideBadge } from './WebGiftAnimationOverlay';
+import { GiftCardArt } from './GiftCardArt';
 
 interface MobileVoiceRoomProps {
   room: VoiceRoom;
@@ -587,36 +588,39 @@ export const MobileVoiceRoom: React.FC<MobileVoiceRoomProps> = ({
         </div>
       )}
 
-      {/* 7. High-Fidelity Tabbed Gift Sheet Modal (Habi Parity) */}
+      {/* 7. Ultra-Luxury 3D Gift Sheet Modal (Habi & Yari Parity) */}
       {showGiftSheet && (
-        <div className="absolute inset-0 bg-black/75 backdrop-blur-sm z-30 flex flex-col justify-end animate-in fade-in duration-150">
-          <div className="bg-[#101726] border-t border-slate-700/80 rounded-t-3xl p-4 text-white shadow-2xl flex flex-col max-h-[460px]">
+        <div className="absolute inset-0 bg-black/80 backdrop-blur-md z-30 flex flex-col justify-end animate-in fade-in duration-150">
+          <div className="bg-gradient-to-b from-[#160D29] via-[#0E071D] to-[#07050E] border-t-2 border-[#FFD700]/50 rounded-t-3xl p-3.5 text-white shadow-[0_-10px_40px_rgba(255,215,0,0.18)] flex flex-col max-h-[500px]">
             {/* Top Bar: Coin Balance & Recipient Selection */}
-            <div className="flex items-center justify-between pb-2.5 border-b border-white/10">
+            <div className="flex items-center justify-between pb-2 border-b border-white/10">
               <div className="flex items-center gap-2">
-                <span className="text-amber-400 font-mono font-bold text-xs flex items-center gap-1">
-                  💰 {userCoins.toLocaleString()}
-                </span>
-                <span className="px-2 py-0.5 bg-gradient-to-r from-amber-500 to-amber-600 rounded-full text-[9px] font-black text-slate-950 uppercase tracking-wider">
-                  Recharge
-                </span>
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#1C1035] border border-[#FFD700]/40 shadow-[0_0_8px_rgba(255,215,0,0.2)]">
+                  <span className="text-xs">🪙</span>
+                  <span className="text-[#FFD700] font-mono font-black text-xs">
+                    {userCoins.toLocaleString()}
+                  </span>
+                </div>
+                <button className="px-2.5 py-1 bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:brightness-110 active:scale-95 transition rounded-full text-[9px] font-black text-[#0D0B18] uppercase tracking-wider shadow-[0_0_8px_rgba(255,215,0,0.4)]">
+                  + Recharge
+                </button>
               </div>
 
               {/* Recipient Selector / All on Mic Toggle */}
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setSendToAllMic(!sendToAllMic)}
-                  className={`px-2.5 py-1 rounded-full text-[10px] font-bold transition flex items-center gap-1 ${
+                  className={`px-2.5 py-1 rounded-full text-[10px] font-black transition flex items-center gap-1 ${
                     sendToAllMic
-                      ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/50 ring-1 ring-blue-400'
-                      : 'bg-white/10 text-white/70 hover:text-white'
+                      ? 'bg-gradient-to-r from-[#7C3AED] to-[#FF2E93] text-white shadow-[0_0_10px_rgba(255,46,147,0.5)] ring-1 ring-white/50'
+                      : 'bg-white/10 text-white/70 hover:text-white border border-white/10'
                   }`}
                 >
-                  <span>{sendToAllMic ? 'All Mic (8x)' : 'All on Mic'}</span>
+                  <span>{sendToAllMic ? '✨ All on Mic (8x)' : 'All on Mic'}</span>
                 </button>
                 <button
                   onClick={() => setShowGiftSheet(false)}
-                  className="p-1 text-white/50 hover:text-white rounded-full transition"
+                  className="p-1.5 text-white/60 hover:text-white bg-white/5 hover:bg-white/10 rounded-full transition"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -624,11 +628,11 @@ export const MobileVoiceRoom: React.FC<MobileVoiceRoomProps> = ({
             </div>
 
             {/* Category Tabs: Popular, Luxury, Lucky 🎰, VIP 👑 */}
-            <div className="flex items-center gap-2 my-2.5">
+            <div className="flex items-center gap-2 my-2">
               {(
                 [
-                  { id: 'popular', label: 'Popular' },
-                  { id: 'luxury', label: 'Luxury' },
+                  { id: 'popular', label: 'Popular 🔥' },
+                  { id: 'luxury', label: 'Luxury 🏎️' },
                   { id: 'lucky', label: 'Lucky 🎰' },
                   { id: 'vip', label: 'VIP 👑' },
                 ] as const
@@ -642,10 +646,10 @@ export const MobileVoiceRoom: React.FC<MobileVoiceRoomProps> = ({
                       const match = gifts.find((g) => g.category === tab.id);
                       if (match) setSelectedGift(match);
                     }}
-                    className={`px-3 py-1 rounded-full text-[11px] font-bold transition ${
+                    className={`px-3 py-1 rounded-full text-[11px] font-black transition ${
                       isActive
-                        ? 'bg-gradient-to-r from-pink-500 to-rose-600 text-white shadow-sm'
-                        : 'bg-white/5 text-slate-400 hover:text-slate-200 hover:bg-white/10'
+                        ? 'bg-gradient-to-r from-[#FF2E93] via-[#FF5376] to-[#FFD700] text-[#0D0B18] shadow-[0_0_12px_rgba(255,46,147,0.5)]'
+                        : 'bg-white/5 text-slate-300 hover:text-white hover:bg-white/10 border border-white/5'
                     }`}
                   >
                     {tab.label}
@@ -654,8 +658,8 @@ export const MobileVoiceRoom: React.FC<MobileVoiceRoomProps> = ({
               })}
             </div>
 
-            {/* Filtered Gift Grid */}
-            <div className="grid grid-cols-4 gap-2 my-1 overflow-y-auto max-h-44 pr-1">
+            {/* 3D Illuminated Gift Pedestal Grid */}
+            <div className="grid grid-cols-4 gap-2.5 my-1 overflow-y-auto max-h-52 pr-1">
               {gifts
                 .filter((g) => g.category === selectedGiftCategory)
                 .map((gift) => {
@@ -665,46 +669,89 @@ export const MobileVoiceRoom: React.FC<MobileVoiceRoomProps> = ({
                     <div
                       key={gift.id}
                       onClick={() => setSelectedGift(gift)}
-                      className={`relative p-2 rounded-xl text-center cursor-pointer transition border flex flex-col items-center justify-center ${
+                      className={`relative p-2 rounded-2xl text-center cursor-pointer transition-all duration-200 flex flex-col items-center justify-between min-h-[106px] group ${
                         isSelected
-                          ? 'bg-blue-900/40 border-amber-400 ring-1 ring-amber-400/80 shadow-md shadow-amber-400/20'
-                          : 'bg-white/5 border-white/10 hover:bg-white/10'
+                          ? 'bg-gradient-to-b from-[#2B1754] to-[#120826] border-2 border-[#FFD700] shadow-[0_0_18px_rgba(255,215,0,0.45)] scale-[1.03]'
+                          : 'bg-gradient-to-b from-[#1C1035]/80 to-[#0B0616]/90 border border-white/10 hover:border-white/25 hover:bg-[#231542]'
                       }`}
                     >
+                      {/* Micro Type Badges */}
                       {gift.isLucky && (
-                        <span className="absolute top-1 right-1 px-1 py-0.2 bg-red-600 rounded text-[8px] font-black text-white uppercase">
-                          🎰
+                        <span className="absolute top-1.5 right-1.5 px-1 py-0.2 bg-gradient-to-r from-red-600 to-amber-600 rounded text-[7.5px] font-black text-white uppercase shadow">
+                          50x
                         </span>
                       )}
-                      {gift.isCombo && (
-                        <span className="absolute top-1 left-1 px-1 py-0.2 bg-pink-600 rounded text-[8px] font-black text-white">
+                      {gift.isCombo && !gift.isLucky && (
+                        <span className="absolute top-1.5 left-1.5 px-1 py-0.2 bg-gradient-to-r from-[#FF2E93] to-pink-600 rounded text-[7.5px] font-black text-white shadow">
                           Combo
                         </span>
                       )}
-                      <span className="text-2xl block animate-in zoom-in duration-100">{gift.icon}</span>
-                      <span className="text-[10px] font-bold block truncate w-full text-slate-100 mt-1">
+                      {gift.category === 'luxury' && (
+                        <span className="absolute top-1.5 right-1.5 px-1 py-0.2 bg-gradient-to-r from-purple-600 to-indigo-600 rounded text-[7px] font-black text-white uppercase shadow">
+                          SVGA
+                        </span>
+                      )}
+                      {gift.category === 'vip' && (
+                        <span className="absolute top-1.5 right-1.5 px-1 py-0.2 bg-gradient-to-r from-[#FFD700] to-[#FFA500] rounded text-[7px] font-black text-[#0D0B18] uppercase shadow">
+                          PAG 3D
+                        </span>
+                      )}
+
+                      {/* 3D Rendered Vector Art (No flat text emojis!) */}
+                      <div className="relative my-0.5 group-hover:scale-110 transition-transform duration-200 flex items-center justify-center h-12">
+                        <GiftCardArt giftId={gift.id} size={48} />
+                      </div>
+
+                      {/* Gift Title */}
+                      <span className="text-[10px] font-black block truncate w-full text-slate-100 tracking-tight">
                         {gift.name}
                       </span>
-                      <span className="text-[9px] font-mono text-amber-300 font-bold block mt-0.5">
-                        🪙 {gift.coinPrice.toLocaleString()}
-                      </span>
+
+                      {/* Coin Price Pill */}
+                      <div className="mt-1 px-1.5 py-0.5 rounded-full bg-black/50 border border-[#FFD700]/30 flex items-center justify-center gap-1 w-full">
+                        <span className="text-[9px]">🪙</span>
+                        <span className="text-[9.5px] font-mono text-[#FFD700] font-black">
+                          {gift.coinPrice.toLocaleString()}
+                        </span>
+                      </div>
                     </div>
                   );
                 })}
             </div>
 
+            {/* Selected Gift Perks Inspector Strip */}
+            <div className="my-1.5 px-2.5 py-1.5 rounded-xl bg-[#160D29]/80 border border-[#FFD700]/30 flex items-center justify-between text-[10px]">
+              <div className="flex items-center gap-1.5">
+                <span className="text-amber-400 font-bold">✨ Selected:</span>
+                <span className="font-black text-white">{selectedGift.name}</span>
+                <span className="text-white/40">•</span>
+                <span className="text-[#00F5A0] font-medium truncate max-w-[130px]">
+                  {selectedGift.isLucky
+                    ? 'Lucky Cash-back up to 50x'
+                    : selectedGift.category === 'luxury'
+                    ? '3D SVGA & Engine Sound'
+                    : selectedGift.category === 'vip'
+                    ? 'Full-Screen PAG 3D'
+                    : 'Rapid Batter Animation'}
+                </span>
+              </div>
+              <span className="text-[#FFD700] font-mono font-black">
+                🪙 {(selectedGift.coinPrice * comboMultiplier * (sendToAllMic ? 8 : 1)).toLocaleString()}
+              </span>
+            </div>
+
             {/* Bottom Action Footer: Combos & Send CTA */}
-            <div className="flex items-center justify-between pt-2.5 mt-auto border-t border-white/10 gap-2">
+            <div className="flex items-center justify-between pt-1 mt-auto border-t border-white/10 gap-2">
               {/* Combo Preset Buttons */}
               <div className="flex items-center gap-1">
                 {[1, 10, 88, 520].map((num) => (
                   <button
                     key={num}
                     onClick={() => setComboMultiplier(num)}
-                    className={`px-2 py-1 rounded text-[10px] font-black font-mono transition ${
+                    className={`px-2 py-1 rounded-lg text-[9.5px] font-black font-mono transition ${
                       comboMultiplier === num
-                        ? 'bg-amber-400 text-slate-950 shadow-sm'
-                        : 'bg-white/10 text-white/70 hover:bg-white/20'
+                        ? 'bg-gradient-to-r from-[#FFD700] to-[#FFA500] text-[#0D0B18] shadow-[0_0_8px_rgba(255,215,0,0.5)]'
+                        : 'bg-[#1C1035] text-white/70 hover:text-white border border-white/10'
                     }`}
                   >
                     x{num}
@@ -716,15 +763,15 @@ export const MobileVoiceRoom: React.FC<MobileVoiceRoomProps> = ({
               {selectedGift.isCombo ? (
                 <button
                   onClick={() => triggerGiftSend(1)}
-                  className="px-4 py-2 bg-gradient-to-r from-amber-500 via-pink-600 to-rose-600 hover:from-amber-400 hover:to-rose-500 text-white rounded-full text-xs font-black shadow-lg shadow-pink-500/30 active:scale-95 transition flex items-center gap-1.5 animate-pulse"
+                  className="px-4 py-2 bg-gradient-to-r from-[#FFD700] via-[#FF2E93] to-[#FF5376] hover:brightness-110 active:scale-95 text-[#0D0B18] rounded-full text-xs font-black shadow-[0_0_16px_rgba(255,46,147,0.6)] transition flex items-center gap-1.5 animate-pulse"
                 >
-                  <Sparkles className="w-3.5 h-3.5" />
+                  <Sparkles className="w-3.5 h-3.5 text-[#0D0B18]" />
                   <span>Combo Tap (🪙{selectedGift.coinPrice * (sendToAllMic ? 8 : 1)})</span>
                 </button>
               ) : (
                 <button
                   onClick={() => triggerGiftSend()}
-                  className="px-5 py-2 bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white rounded-full text-xs font-black shadow-lg shadow-pink-500/30 active:scale-95 transition"
+                  className="px-5 py-2 bg-gradient-to-r from-[#FF2E93] via-[#FF5376] to-[#FFD700] hover:brightness-110 active:scale-95 text-[#0D0B18] rounded-full text-xs font-black shadow-[0_0_16px_rgba(255,46,147,0.6)] transition"
                 >
                   Send (🪙{(selectedGift.coinPrice * comboMultiplier * (sendToAllMic ? 8 : 1)).toLocaleString()})
                 </button>

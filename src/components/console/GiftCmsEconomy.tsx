@@ -39,7 +39,7 @@ export const GiftCmsEconomy: React.FC<GiftCmsEconomyProps> = ({
 
   // New gift form state
   const [newGiftName, setNewGiftName] = useState('Royal Arabian Falcon');
-  const [newGiftArabic, setNewGiftArabic] = useState('صقر عربي ملكي');
+  const [newGiftSubtitle, setNewGiftSubtitle] = useState('Imperial Falcon SVGA');
   const [newGiftPrice, setNewGiftPrice] = useState(22000);
   const [newGiftCategory, setNewGiftCategory] = useState<GiftItem['category']>('luxury');
   const [newGiftIcon, setNewGiftIcon] = useState('🦅');
@@ -70,7 +70,7 @@ export const GiftCmsEconomy: React.FC<GiftCmsEconomyProps> = ({
     const newGift: GiftItem = {
       id: `gift_${Date.now()}`,
       name: newGiftName,
-      arabicName: newGiftArabic,
+      subtitle: newGiftSubtitle,
       coinPrice: Number(newGiftPrice),
       diamondValue: Math.round(Number(newGiftPrice) * 0.7),
       category: newGiftCategory,
@@ -147,7 +147,9 @@ export const GiftCmsEconomy: React.FC<GiftCmsEconomyProps> = ({
 
                   <div className="mt-3">
                     <h4 className="text-sm font-bold text-white">{gift.name}</h4>
-                    <p className="text-xs text-amber-400/90 font-medium">{gift.arabicName}</p>
+                    <p className="text-xs text-amber-400/90 font-medium">
+                      {gift.subtitle || `${gift.category.toUpperCase()} TIER`}
+                    </p>
                   </div>
 
                   <div className="mt-3 space-y-1 text-xs font-mono">

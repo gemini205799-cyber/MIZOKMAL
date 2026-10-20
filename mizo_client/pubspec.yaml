@@ -15,6 +15,11 @@ dependencies:
   
   # State Management & DI (matching Yari & FluffyChat patterns)
   flutter_riverpod: ^2.5.1
+
+  # Firebase Official Ecosystem
+  firebase_core: ^3.6.0
+  firebase_auth: ^5.3.1
+  cloud_firestore: ^5.4.4
   
   # Animation & Multimedia
   flutter_svg: ^2.0.10+1

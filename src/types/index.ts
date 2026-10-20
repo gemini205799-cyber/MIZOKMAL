@@ -61,7 +61,8 @@ export interface UserAccount {
 export interface GiftItem {
   id: string;
   name: string;
-  arabicName: string;
+  subtitle?: string;
+  arabicName?: string;
   bengaliName?: string;
   coinPrice: number;
   diamondValue: number;

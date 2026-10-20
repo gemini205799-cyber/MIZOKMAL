@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { GiftItem } from '../../types';
 import confetti from 'canvas-confetti';
+import { GiftCardArt } from './GiftCardArt';
 
 export interface ActiveGiftBroadcast {
   id: string;
@@ -348,25 +349,23 @@ export const WebGiftAnimationOverlay: React.FC<WebGiftAnimationOverlayProps> = (
             </div>
           </div>
 
-          {/* Dynamic SVG / Luxury Asset Centerpiece Graphic */}
-          <div className="relative z-10 mt-8 flex flex-col items-center">
+          {/* Dynamic 3D Luxury Asset Centerpiece Graphic */}
+          <div className="relative z-10 mt-6 flex flex-col items-center">
             {/* Ambient Halo */}
             <div className="absolute -inset-10 bg-radial from-amber-500/30 via-pink-500/10 to-transparent blur-2xl rounded-full pointer-events-none" />
 
-            {/* Scaled Visual Render */}
-            <div className="relative text-8xl filter drop-shadow-[0_15px_25px_rgba(245,158,11,0.6)] animate-pulse">
-              {currentGift.gift.icon}
+            {/* Scaled 3D Visual Render */}
+            <div className="relative filter drop-shadow-[0_15px_30px_rgba(255,215,0,0.6)] animate-pulse">
+              <GiftCardArt giftId={currentGift.gift.id} size={110} />
             </div>
 
             <div className="mt-4 px-5 py-2 rounded-2xl bg-slate-950/90 border-2 border-amber-400/90 shadow-2xl flex flex-col items-center text-center">
               <span className="text-xs font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-100 to-amber-200 uppercase tracking-widest">
                 {currentGift.gift.name}
               </span>
-              {currentGift.gift.arabicName && (
-                <span className="text-[11px] font-medium text-amber-200/80 font-arabic mt-0.5" dir="rtl">
-                  {currentGift.gift.arabicName}
-                </span>
-              )}
+              <span className="text-[11px] font-semibold text-amber-300/90 mt-0.5">
+                {currentGift.gift.subtitle || `${currentGift.gift.category.toUpperCase()} TIER`}
+              </span>
               <span className="text-[10px] font-mono text-emerald-400 mt-1">
                 Value: {(currentGift.gift.coinPrice * currentGift.combo).toLocaleString()} Coins
               </span>

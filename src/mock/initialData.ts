@@ -171,8 +171,7 @@ export const INITIAL_GIFTS: GiftItem[] = [
   {
     id: 'gift_super_car',
     name: 'Gold McLaren P1',
-    arabicName: 'سيارة ماكلارين ذهبية',
-    bengaliName: 'গোল্ড ম্যাকলারেন পি১',
+    subtitle: 'Gold Hypercar Edition',
     coinPrice: 18000,
     diamondValue: 12600,
     category: 'luxury',
@@ -187,8 +186,7 @@ export const INITIAL_GIFTS: GiftItem[] = [
   {
     id: 'gift_golden_bike',
     name: 'Cruiser Golden Bike',
-    arabicName: 'دراجة كروزر ذهبية',
-    bengaliName: 'গোল্ডেন ক্রুজার বাইক',
+    subtitle: 'Custom Chopper Superbike',
     coinPrice: 12000,
     diamondValue: 8400,
     category: 'luxury',
@@ -203,8 +201,7 @@ export const INITIAL_GIFTS: GiftItem[] = [
   {
     id: 'gift_lucky_wheel',
     name: 'Sultan Lucky Wheel',
-    arabicName: 'عجلة الحظ السلطانية',
-    bengaliName: 'সুলতান লাকি হুইল',
+    subtitle: 'Casino Cash-Back 50x',
     coinPrice: 1000,
     diamondValue: 700,
     category: 'lucky',
@@ -223,8 +220,7 @@ export const INITIAL_GIFTS: GiftItem[] = [
   {
     id: 'gift_lucky_chest',
     name: 'Pharaoh Gold Treasure',
-    arabicName: 'كنز الفرعون الذهبي',
-    bengaliName: 'ফারাও গোল্ড ট্র্যাজার',
+    subtitle: 'Ancient Vault 100x Win',
     coinPrice: 500,
     diamondValue: 350,
     category: 'lucky',
@@ -243,8 +239,7 @@ export const INITIAL_GIFTS: GiftItem[] = [
   {
     id: 'gift_space_rocket',
     name: 'Falcon Galactic Rocket',
-    arabicName: 'صاروخ فالكون الفضائي',
-    bengaliName: 'ফ্যালকন রকেট',
+    subtitle: 'Cosmic Warp 3D Spacecraft',
     coinPrice: 50000,
     diamondValue: 35000,
     category: 'vip',
@@ -260,8 +255,7 @@ export const INITIAL_GIFTS: GiftItem[] = [
   {
     id: 'gift_royal_castle',
     name: 'Imperial Palace',
-    arabicName: 'القصر الإمبراطوري',
-    bengaliName: 'রাজপ্রাসাদ',
+    subtitle: 'Royal Golden Citadel',
     coinPrice: 30000,
     diamondValue: 21000,
     category: 'vip',
@@ -276,8 +270,7 @@ export const INITIAL_GIFTS: GiftItem[] = [
   {
     id: 'gift_super_fans_crest',
     name: 'Super Fans Crown',
-    arabicName: 'تاج كبار المعجبين',
-    bengaliName: 'সুপার ফ্যানস ক্রাউন',
+    subtitle: 'Imperial Diamond Bezel',
     coinPrice: 6000,
     diamondValue: 4200,
     category: 'popular',
@@ -292,8 +285,7 @@ export const INITIAL_GIFTS: GiftItem[] = [
   {
     id: 'gift_red_rose',
     name: 'Eternal Velvet Rose',
-    arabicName: 'وردة مخملية أبدية',
-    bengaliName: 'চিরন্তন লাল গোলাপ',
+    subtitle: 'Enchanted Crystal Rose',
     coinPrice: 100,
     diamondValue: 70,
     category: 'popular',
