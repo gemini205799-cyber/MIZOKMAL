@@ -1,0 +1,21 @@
+{
+  "@@locale": "en",
+  "appName": "MIZO",
+  "welcomeTitle": "Welcome to MIZO",
+  "welcomeSubtitle": "Live Voice Party & Social Entertainment",
+  "selectLanguage": "Select Your Language",
+  "continueButton": "Continue",
+  "roomsTitle": "Live Rooms",
+  "takeMic": "On mic",
+  "invite": "Invite",
+  "lockSeat": "Lock",
+  "unlockSeat": "Unlock",
+  "lockAll": "Lock All",
+  "mute": "Mute",
+  "unmute": "Unmute",
+  "sendGift": "Send Gift",
+  "coins": "Coins",
+  "diamonds": "Diamonds",
+  "recharge": "Recharge",
+  "listeners": "Listeners"
+}

@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  # 1. LiveKit WebRTC SFU Server
+  livekit:
+    image: livekit/livekit-server:v1.7.2
+    container_name: mizo-livekit-sfu
+    restart: unless-stopped
+    command: --config /etc/livekit.yaml
+    ports:
+      - "7880:7880"         # Signaling & HTTP API
+      - "7881:7881/tcp"     # WebRTC ICE over TCP
+      - "7882:7882/udp"     # WebRTC ICE over UDP
+    volumes:
+      - ./backend/livekit.yaml:/etc/livekit.yaml
+    environment:
+      - LIVEKIT_KEYS=devkey_mizo_prod: secret_mizo_super_secure_992831
+    depends_on:
+      - redis
+    networks:
+      - mizo-network
+
+  # 2. Redis for Pub/Sub, In-Memory Seat Locks & Presence Caching
+  redis:
+    image: redis:7-alpine
+    container_name: mizo-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - mizo-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # 3. PostgreSQL Persistent Database (Prisma ORM)
+  postgres:
+    image: postgres:16-alpine
+    container_name: mizo-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: mizo_admin
+      POSTGRES_PASSWORD: mizo_secure_password_2026
+      POSTGRES_DB: mizo_production
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    networks:
+      - mizo-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mizo_admin -d mizo_production"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # 4. MIZO Real-Time Backend API & Socket.IO Signaling Server
+  mizo-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: mizo-backend-api
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      DATABASE_URL: "postgresql://mizo_admin:mizo_secure_password_2026@postgres:5432/mizo_production?schema=public"
+      REDIS_URL: "redis://redis:6379"
+      LIVEKIT_URL: "http://livekit:7880"
+      LIVEKIT_API_KEY: "devkey_mizo_prod"
+      LIVEKIT_API_SECRET: "secret_mizo_super_secure_992831"
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    networks:
+      - mizo-network
+
+networks:
+  mizo-network:
+    driver: bridge
+
+volumes:
+  pg-data:
+  redis-data:

@@ -1,0 +1,6 @@
+{
+  "name": "MIZO - Voice Social Entertainment & LiveKit Ecosystem",
+  "description": "Enterprise-grade Voice Social Entertainment platform with LiveKit SFU audio seats, real-time operations console, virtual economy gifting engine, and mobile voice client architecture.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,17 @@
+port: 7880
+bind_addresses:
+  - ""
+rtc:
+  tcp_port: 7881
+  port_range_start: 50000
+  port_range_end: 60000
+  use_external_ip: false
+redis:
+  address: redis:6379
+keys:
+  devkey_mizo_prod: secret_mizo_super_secure_992831
+logging:
+  level: info
+audio:
+  # Enable continuous DTX (Discontinuous Transmission) to optimize voice room bandwidth
+  dtx: true

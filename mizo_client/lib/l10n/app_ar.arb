@@ -1,0 +1,21 @@
+{
+  "@@locale": "ar",
+  "appName": "ميزو",
+  "welcomeTitle": "مرحباً بك في ميزو",
+  "welcomeSubtitle": "منصة الحفلات الصوتية والترفيه الاجتماعي المباشر",
+  "selectLanguage": "اختر لغتك المفضلة",
+  "continueButton": "متابعة",
+  "roomsTitle": "الغرف المباشرة",
+  "takeMic": "صعود المايك",
+  "invite": "دعوة",
+  "lockSeat": "قفل المقعد",
+  "unlockSeat": "فتح المقعد",
+  "lockAll": "قفل الكل",
+  "mute": "كتم الصوت",
+  "unmute": "إلغاء الكتم",
+  "sendGift": "إرسال هدية",
+  "coins": "عملات",
+  "diamonds": "ألماس",
+  "recharge": "شحن الرصيد",
+  "listeners": "مستمعين"
+}

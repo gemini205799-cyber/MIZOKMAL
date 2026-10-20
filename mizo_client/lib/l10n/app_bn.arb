@@ -1,0 +1,21 @@
+{
+  "@@locale": "bn",
+  "appName": "মিজো",
+  "welcomeTitle": "মিজো-তে স্বাগতম",
+  "welcomeSubtitle": "লাইভ ভয়েস পার্টি এবং বিনোদন প্ল্যাটফর্ম",
+  "selectLanguage": "আপনার ভাষা নির্বাচন করুন",
+  "continueButton": "পরবর্তী",
+  "roomsTitle": "লাইভ রুম",
+  "takeMic": "মাইকে যান",
+  "invite": "আমন্ত্রণ জানান",
+  "lockSeat": "লক করুন",
+  "unlockSeat": "আনলক করুন",
+  "lockAll": "সবগুলো লক করুন",
+  "mute": "মিউট",
+  "unmute": "আনমিউট",
+  "sendGift": "উপহার পাঠান",
+  "coins": "কয়েন",
+  "diamonds": "ডায়মন্ড",
+  "recharge": "রিচার্জ",
+  "listeners": "শ্রোতা"
+}

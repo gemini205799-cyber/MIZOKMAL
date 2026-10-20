@@ -1,0 +1,193 @@
+// MIZO Prisma Database Schema
+// Optimized for PostgreSQL with high concurrency real-time voice rooms,
+// ledger audit trails, user moderation, and agency hierarchies.
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum UserRole {
+  USER
+  HOST
+  AGENCY_LEAD
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum ModerationStatus {
+  ACTIVE
+  VOICE_MUTED
+  ROOM_BANNED
+  GLOBAL_BANNED
+}
+
+enum GiftCategory {
+  POPULAR
+  LUXURY
+  ROMANTIC
+  SPECIAL
+}
+
+enum TransactionType {
+  GIFT_PURCHASE
+  GIFT_RECEIVE
+  RECHARGE_COINS
+  WITHDRAWAL_DIAMONDS
+  DAILY_REWARD
+  INVITE_BONUS
+  AGENCY_COMMISSION
+}
+
+model User {
+  id               String           @id @default(uuid())
+  displayId        String           @unique // e.g. "16701257"
+  username         String           @unique
+  displayName      String
+  avatar           String?
+  gender           String?          // "male", "female"
+  country          String?
+  role             UserRole         @default(USER)
+  moderationStatus ModerationStatus @default(ACTIVE)
+  level            Int              @default(1)
+  svipTier         Int              @default(0)
+  deviceId         String?
+  ipAddress        String?
+  isKycVerified    Boolean          @default(false)
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  wallet           Wallet?
+  agencyMembership AgencyMember?
+  hostedRooms      VoiceRoom[]      @relation("RoomHost")
+  sentGifts        GiftLedger[]     @relation("GiftSender")
+  receivedGifts    GiftLedger[]     @relation("GiftReceiver")
+  withdrawals      WithdrawalRequest[]
+
+  @@index([displayId])
+  @@index([deviceId])
+}
+
+model Wallet {
+  id             String   @id @default(uuid())
+  userId         String   @unique
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  coinsBalance   BigInt   @default(0)
+  diamondsBalance BigInt  @default(0)
+  totalRecharged BigInt   @default(0)
+  totalEarned    BigInt   @default(0)
+  updatedAt      DateTime @updatedAt
+}
+
+model VoiceRoom {
+  id            String    @id @default(uuid())
+  roomNumber    String    @unique // e.g. "16701257"
+  title         String
+  hostId        String
+  host          User      @relation("RoomHost", fields: [hostId], references: [id])
+  seatCount     Int       @default(12) // 8 or 12
+  isLocked      Boolean   @default(false)
+  isLive        Boolean   @default(true)
+  livekitRoomId String    @unique
+  themeKey      String    @default("palace_gold")
+  country       String    @default("Bangladesh")
+  createdAt     DateTime  @default(now())
+  endedAt       DateTime?
+
+  seats         VoiceSeatAssignment[]
+
+  @@index([hostId])
+  @@index([roomNumber])
+}
+
+model VoiceSeatAssignment {
+  id            String    @id @default(uuid())
+  roomId        String
+  room          VoiceRoom @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  seatIndex     Int       // 1 to 12
+  occupiedById  String?
+  isLocked      Boolean   @default(false)
+  isMuted       Boolean   @default(false)
+  updatedAt     DateTime  @updatedAt
+
+  @@unique([roomId, seatIndex])
+}
+
+model Gift {
+  id            String       @id @default(uuid())
+  slug          String       @unique
+  name          String
+  arabicName    String
+  coinPrice     Int
+  diamondValue  Int
+  category      GiftCategory @default(POPULAR)
+  iconUrl       String
+  animationType String       // "svga", "lottie", "particle"
+  animationUrl  String
+  soundFxUrl    String
+  durationMs    Int          @default(3000)
+  isActive      Boolean      @default(true)
+  createdAt     DateTime     @default(now())
+
+  ledgers       GiftLedger[]
+}
+
+model GiftLedger {
+  id             String          @id @default(uuid())
+  transactionRef String          @unique
+  senderId       String
+  sender         User            @relation("GiftSender", fields: [senderId], references: [id])
+  receiverId     String
+  receiver       User            @relation("GiftReceiver", fields: [receiverId], references: [id])
+  giftId         String
+  gift           Gift            @relation(fields: [giftId], references: [id])
+  comboCount     Int             @default(1)
+  coinAmount     BigInt
+  diamondAmount  BigInt
+  platformShare  BigInt
+  roomId         String?
+  createdAt      DateTime        @default(now())
+
+  @@index([senderId])
+  @@index([receiverId])
+  @@index([roomId])
+}
+
+model Agency {
+  id             String         @id @default(uuid())
+  agencyCode     String         @unique // e.g. "AG-ROYAL-77"
+  agencyName     String
+  leadContact    String
+  commissionRate Float          @default(0.15) // 15%
+  isActive       Boolean        @default(true)
+  createdAt      DateTime       @default(now())
+
+  members        AgencyMember[]
+}
+
+model AgencyMember {
+  id        String   @id @default(uuid())
+  agencyId  String
+  agency    Agency   @relation(fields: [agencyId], references: [id])
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  joinedAt  DateTime @default(now())
+}
+
+model WithdrawalRequest {
+  id             String   @id @default(uuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id])
+  diamondAmount  BigInt
+  cashEquivalent Float
+  payoutMethod   String   // "BANK_TRANSFER", "USDT_TRC20", "STC_PAY"
+  payoutDetails  String
+  status         String   @default("PENDING") // PENDING, APPROVED, REJECTED
+  reviewedBy     String?
+  createdAt      DateTime @default(now())
+  reviewedAt     DateTime?
+}
