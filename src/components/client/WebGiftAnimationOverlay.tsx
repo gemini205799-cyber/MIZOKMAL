@@ -295,11 +295,11 @@ export const WebGiftAnimationOverlay: React.FC<WebGiftAnimationOverlayProps> = (
             className="absolute inset-0 w-full h-full pointer-events-none"
           />
 
-          {/* Engine Header Watermark */}
-          <div className="absolute top-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/90 border border-amber-400/80 text-[10px] text-amber-300 font-mono font-bold shadow-lg shadow-amber-500/20">
-            <span>{isPag ? '⚡ PAG Hybrid Engine' : isSvga ? '✨ SVGA 2.0 Renderer' : '💫 Particle Engine'}</span>
-            <span className="text-slate-400">|</span>
-            <span className="text-emerald-400">60 FPS</span>
+          {/* Engine Header Watermark (Tencent libpag parity) */}
+          <div className="absolute top-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3.5 py-1 rounded-full bg-slate-900/95 border border-[#FFD700] text-[10.5px] text-[#FFD700] font-mono font-bold shadow-[0_0_12px_rgba(255,215,0,0.4)]">
+            <span className="flex items-center gap-1">⚡ TENCENT libpag Engine</span>
+            <span className="text-slate-500">|</span>
+            <span className="text-[#00F5A0] font-black">60 FPS Hardware</span>
           </div>
 
           {/* Dynamic Injected Avatar Showcase (matching svga_avatar_key & PAG slots) */}

@@ -15,6 +15,7 @@ import {
   Coins
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { GiftCardArt } from '../client/GiftCardArt';
 
 interface GiftCmsEconomyProps {
   gifts: GiftItem[];
@@ -137,9 +138,9 @@ export const GiftCmsEconomy: React.FC<GiftCmsEconomyProps> = ({
               >
                 <div>
                   <div className="flex items-start justify-between">
-                    <span className="text-3xl p-2 bg-slate-950/60 rounded-lg border border-slate-800/80">
-                      {gift.icon}
-                    </span>
+                    <div className="w-12 h-12 p-1 bg-slate-950/60 rounded-lg border border-slate-800/80 flex items-center justify-center">
+                      <GiftCardArt giftId={gift.id} size={36} />
+                    </div>
                     <span className="text-[10px] font-mono uppercase px-2 py-0.5 bg-slate-800 text-slate-300 rounded">
                       {gift.category}
                     </span>
@@ -368,13 +369,13 @@ export const GiftCmsEconomy: React.FC<GiftCmsEconomyProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Gift Name (Arabic)</label>
+                <label className="block text-xs font-semibold text-slate-300 mb-1">Subtitle / Tier Description</label>
                 <input
                   type="text"
-                  value={newGiftArabic}
-                  onChange={(e) => setNewGiftArabic(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-sm text-white text-right"
-                  required
+                  value={newGiftSubtitle}
+                  onChange={(e) => setNewGiftSubtitle(e.target.value)}
+                  className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg text-sm text-white"
+                  placeholder="e.g. 3D PAG Starship with Audio Sync"
                 />
               </div>
 

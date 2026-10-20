@@ -21,7 +21,8 @@ dependencies:
   firebase_auth: ^5.3.1
   cloud_firestore: ^5.4.4
   
-  # Animation & Multimedia
+  # Animation & Multimedia (Tencent libpag + SVGA + Lottie)
+  pag_animation: ^1.0.0
   flutter_svg: ^2.0.10+1
   lottie: ^3.1.0
   flutter_animate: ^4.5.0

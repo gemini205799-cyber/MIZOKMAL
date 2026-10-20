@@ -92,8 +92,46 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen>
   final TextEditingController _chatController = TextEditingController();
   final ScrollController _chatScrollController = ScrollController();
 
-  // Catalog of gifts matching Habi DTOs
+  // Catalog of gifts matching Habi DTOs & Tencent libpag specification
   final List<GiftJson> _catalogGifts = [
+    // 1. Popular
+    const GiftJson(
+      id: 'gift_red_rose',
+      name: 'Eternal Velvet Rose',
+      cost: 100,
+      giftType: 1,
+      sound: 'https://assets.mixkit.co/active_storage/sfx/2020/2020-preview.mp3',
+      isCombo: true,
+    ),
+    const GiftJson(
+      id: 'gift_diamond_ring',
+      name: 'Solitaire Diamond Ring',
+      cost: 2500,
+      giftType: 1,
+      sound: 'https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3',
+      svgaAvatarKey: 'avatar_ring_holder',
+      isCombo: true,
+    ),
+    const GiftJson(
+      id: 'gift_magic_wand',
+      name: 'Starfall Magic Wand',
+      cost: 4500,
+      giftType: 1,
+      sound: 'https://assets.mixkit.co/active_storage/sfx/2021/2021-preview.mp3',
+      pagUrl: 'https://mizo-assets.live/pag/magic_wand.pag',
+      isCombo: true,
+    ),
+    const GiftJson(
+      id: 'gift_super_fans_crest',
+      name: 'Super Fans Crown',
+      cost: 6000,
+      giftType: 1,
+      sound: 'https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3',
+      svgaAvatarKey: 'avatar_crowned',
+      isCombo: true,
+    ),
+
+    // 2. Luxury
     const GiftJson(
       id: 'gift_super_car',
       name: 'Gold McLaren P1',
@@ -102,6 +140,16 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen>
       sound: 'https://assets.mixkit.co/active_storage/sfx/2874/2874-preview.mp3',
       svgaAvatarKey: 'avatar_driver_seat',
       pagUrl: 'https://mizo-assets.live/pag/mclaren_p1.pag',
+      isCombo: false,
+    ),
+    const GiftJson(
+      id: 'gift_bugatti',
+      name: 'Bugatti Chiron Obsidian',
+      cost: 28000,
+      giftType: 2,
+      sound: 'https://assets.mixkit.co/active_storage/sfx/2874/2874-preview.mp3',
+      svgaAvatarKey: 'avatar_pilot',
+      pagUrl: 'https://mizo-assets.live/pag/bugatti_chiron.pag',
       isCombo: false,
     ),
     const GiftJson(
@@ -114,16 +162,52 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen>
       isCombo: false,
     ),
     const GiftJson(
+      id: 'gift_private_jet',
+      name: 'Gulfstream Celestial Jet',
+      cost: 40000,
+      giftType: 2,
+      sound: 'https://assets.mixkit.co/active_storage/sfx/2873/2873-preview.mp3',
+      svgaAvatarKey: 'avatar_captain',
+      pagUrl: 'https://mizo-assets.live/pag/private_jet.pag',
+      isCombo: false,
+    ),
+
+    // 3. Lucky Jackpot
+    const GiftJson(
       id: 'gift_lucky_wheel',
-      name: 'Sultan Lucky Wheel',
+      name: 'Sultan Lucky Roulette',
       cost: 1000,
       giftType: 3,
       sound: 'https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3',
       svgaAvatarKey: 'avatar_lucky_winner',
       pagUrl: 'https://mizo-assets.live/pag/lucky_wheel.pag',
       isCombo: true,
-      luckyScore: LuckyScore(luckyRate: 0.15, jackpotPool: 250000),
+      luckyScore: LuckyScore(luckyRate: 0.18, jackpotPool: 500000),
     ),
+    const GiftJson(
+      id: 'gift_lucky_chest',
+      name: 'Pharaoh Gold Vault',
+      cost: 500,
+      giftType: 3,
+      sound: 'https://assets.mixkit.co/active_storage/sfx/2021/2021-preview.mp3',
+      svgaAvatarKey: 'avatar_lucky_winner',
+      pagUrl: 'https://mizo-assets.live/pag/pharaoh_chest.pag',
+      isCombo: true,
+      luckyScore: LuckyScore(luckyRate: 0.25, jackpotPool: 100000),
+    ),
+    const GiftJson(
+      id: 'gift_money_gun',
+      name: 'Golden Cash Blaster',
+      cost: 2000,
+      giftType: 3,
+      sound: 'https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3',
+      svgaAvatarKey: 'avatar_high_roller',
+      pagUrl: 'https://mizo-assets.live/pag/money_gun.pag',
+      isCombo: true,
+      luckyScore: LuckyScore(luckyRate: 0.20, jackpotPool: 200000),
+    ),
+
+    // 4. VIP & Royal
     const GiftJson(
       id: 'gift_space_rocket',
       name: 'Falcon Galactic Rocket',
@@ -136,12 +220,56 @@ class _VoiceRoomScreenState extends State<VoiceRoomScreen>
       world: true,
     ),
     const GiftJson(
-      id: 'gift_red_rose',
-      name: 'Eternal Velvet Rose',
-      cost: 100,
-      giftType: 1,
-      sound: 'https://assets.mixkit.co/active_storage/sfx/2020/2020-preview.mp3',
-      isCombo: true,
+      id: 'gift_cyber_dragon',
+      name: 'Imperial Cyber Dragon',
+      cost: 80000,
+      giftType: 4,
+      sound: 'https://assets.mixkit.co/active_storage/sfx/2874/2874-preview.mp3',
+      svgaAvatarKey: 'avatar_dragon_rider',
+      pagUrl: 'https://mizo-assets.live/pag/cyber_dragon.pag',
+      isCombo: false,
+      world: true,
+    ),
+    const GiftJson(
+      id: 'gift_phoenix',
+      name: 'Celestial Phoenix Rising',
+      cost: 100000,
+      giftType: 4,
+      sound: 'https://assets.mixkit.co/active_storage/sfx/2873/2873-preview.mp3',
+      svgaAvatarKey: 'avatar_phoenix_emperor',
+      pagUrl: 'https://mizo-assets.live/pag/phoenix_rising.pag',
+      isCombo: false,
+      world: true,
+    ),
+    const GiftJson(
+      id: 'gift_royal_castle',
+      name: 'Imperial Golden Citadel',
+      cost: 30000,
+      giftType: 4,
+      sound: 'https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3',
+      svgaAvatarKey: 'avatar_emperor',
+      isCombo: false,
+    ),
+    const GiftJson(
+      id: 'gift_luxury_yacht',
+      name: 'Sovereign Golden Yacht',
+      cost: 65000,
+      giftType: 4,
+      sound: 'https://assets.mixkit.co/active_storage/sfx/2875/2875-preview.mp3',
+      svgaAvatarKey: 'avatar_commodore',
+      pagUrl: 'https://mizo-assets.live/pag/luxury_yacht.pag',
+      isCombo: false,
+      world: true,
+    ),
+    const GiftJson(
+      id: 'gift_love_carriage',
+      name: 'Crystal Royal Carriage',
+      cost: 35000,
+      giftType: 4,
+      sound: 'https://assets.mixkit.co/active_storage/sfx/2021/2021-preview.mp3',
+      svgaAvatarKey: 'avatar_princess',
+      pagUrl: 'https://mizo-assets.live/pag/cinderella_carriage.pag',
+      isCombo: false,
     ),
   ];
 

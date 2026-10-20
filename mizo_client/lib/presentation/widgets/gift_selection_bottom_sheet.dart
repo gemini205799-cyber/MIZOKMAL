@@ -10,6 +10,7 @@ library;
 
 import 'package:flutter/material.dart';
 import '../../models/habi_models.dart';
+import 'gift_3d_vector_art.dart';
 
 class GiftSelectionBottomSheet extends StatefulWidget {
   final int userCoins;
@@ -400,7 +401,7 @@ class _GiftSelectionBottomSheetState extends State<GiftSelectionBottomSheet> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              // 3D Glowing Podium Avatar / Visual Icon
+                              // 3D Glowing Podium Avatar / Visual Icon (Tencent libpag Vector standard)
                               Container(
                                 width: 44,
                                 height: 44,
@@ -411,15 +412,15 @@ class _GiftSelectionBottomSheetState extends State<GiftSelectionBottomSheet> {
                                       (isSelected
                                               ? const Color(0xFFFFD700)
                                               : const Color(0xFF7C3AED))
-                                          .withOpacity(0.25),
+                                          .withOpacity(0.35),
                                       Colors.transparent,
                                     ],
                                   ),
                                 ),
                                 child: Center(
-                                  child: Text(
-                                    _getGiftVisualEmoji(gift),
-                                    style: const TextStyle(fontSize: 26),
+                                  child: Gift3DVectorArt(
+                                    giftId: gift.id,
+                                    size: 40,
                                   ),
                                 ),
                               ),
@@ -516,7 +517,7 @@ class _GiftSelectionBottomSheetState extends State<GiftSelectionBottomSheet> {
                   Expanded(
                     child: Text(
                       _selectedGift!.luckyScore != null
-                          ? 'Lucky Cash-back up to 50x'
+                          ? 'Lucky Cash-back up to 500x'
                           : (_selectedGift!.pagUrl != null
                               ? 'Full-Screen PAG 3D'
                               : (_selectedGift!.giftType == 2
@@ -559,14 +560,14 @@ class _GiftSelectionBottomSheetState extends State<GiftSelectionBottomSheet> {
               children: [
                 // Quick Combo Preset Buttons
                 Row(
-                  children: [1, 10, 88, 520].map((num) {
+                  children: [1, 10, 88, 520, 1314].map((num) {
                     final isSel = _selectedCombo == num;
                     return GestureDetector(
                       onTap: () => setState(() => _selectedCombo = num),
                       child: Container(
-                        margin: const EdgeInsets.only(right: 6),
+                        margin: const EdgeInsets.only(right: 5),
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 7, vertical: 4),
+                            horizontal: 6, vertical: 4),
                         decoration: BoxDecoration(
                           gradient: isSel
                               ? const LinearGradient(
@@ -590,7 +591,7 @@ class _GiftSelectionBottomSheetState extends State<GiftSelectionBottomSheet> {
                             color: isSel
                                 ? const Color(0xFF0D0B18)
                                 : Colors.white70,
-                            fontSize: 10,
+                            fontSize: 9.5,
                             fontWeight: FontWeight.w900,
                             fontFamily: 'monospace',
                           ),

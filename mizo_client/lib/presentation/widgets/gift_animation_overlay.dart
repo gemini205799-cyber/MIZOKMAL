@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import '../../core/gift_queue_manager.dart';
 import '../../models/habi_models.dart';
+import 'gift_3d_vector_art.dart';
 
 class GiftAnimationOverlay extends StatefulWidget {
   final GiftQueueManager queueManager;
@@ -156,23 +157,23 @@ class _GiftAnimationOverlayState extends State<GiftAnimationOverlay> {
             ),
             const SizedBox(height: 12),
 
-            // Visual Center Piece / Graphic Simulation
+            // Visual Center Piece / 3D Hardware Accelerated Showcase
             Container(
-              width: 180,
-              height: 180,
+              width: 170,
+              height: 170,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: RadialGradient(
                   colors: [
-                    const Color(0xFFF59E0B).withOpacity(0.4),
+                    const Color(0xFFFFD700).withOpacity(0.4),
                     Colors.transparent,
                   ],
                 ),
               ),
               child: Center(
-                child: Text(
-                  gift.type == 4 ? '🚀' : gift.type == 2 ? '🏎️' : '👑',
-                  style: const TextStyle(fontSize: 90),
+                child: Gift3DVectorArt(
+                  giftId: gift.giftId,
+                  size: 140,
                 ),
               ),
             ),

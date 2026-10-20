@@ -18,6 +18,7 @@ import {
   Dice5
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { GiftCardArt } from '../client/GiftCardArt';
 
 interface GiftManagementCMSProps {
   t: Translations;
@@ -137,9 +138,9 @@ export const GiftManagementCMS: React.FC<GiftManagementCMSProps> = ({
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-3xl p-2 bg-slate-900 rounded-xl border border-slate-800">
-                    {gift.icon}
-                  </span>
+                  <div className="p-1.5 bg-slate-900 rounded-xl border border-slate-800 flex items-center justify-center w-12 h-12">
+                    <GiftCardArt giftId={gift.id} size={36} />
+                  </div>
                   <div>
                     <h4 className="text-xs font-bold text-white">{gift.name}</h4>
                     <span className="text-[11px] text-amber-400/90 font-mono">
@@ -183,13 +184,15 @@ export const GiftManagementCMS: React.FC<GiftManagementCMSProps> = ({
           <div className="flex items-start justify-between pb-3 border-b border-slate-800">
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-2xl">{selectedGift.icon}</span>
+                <GiftCardArt giftId={selectedGift.id} size={32} />
                 <h3 className="text-base font-bold text-white">{selectedGift.name}</h3>
                 <span className="px-2 py-0.5 bg-purple-500/20 text-purple-300 text-[10px] font-mono rounded">
                   {selectedGift.category.toUpperCase()}
                 </span>
               </div>
-              <p className="text-xs text-amber-300 mt-1 font-mono">{selectedGift.arabicName}</p>
+              <p className="text-xs text-amber-300 mt-1 font-mono">
+                {selectedGift.subtitle || `${selectedGift.category.toUpperCase()} TIER`}
+              </p>
             </div>
 
             <button
@@ -204,8 +207,10 @@ export const GiftManagementCMS: React.FC<GiftManagementCMSProps> = ({
           {/* Graphic Simulator Canvas */}
           <div className="relative h-48 bg-slate-950 border border-slate-800/80 rounded-xl overflow-hidden flex flex-col items-center justify-center p-4">
             {isPreviewPlaying ? (
-              <div className="text-center animate-in zoom-in duration-300">
-                <span className="text-6xl animate-bounce block mb-2">{selectedGift.icon}</span>
+              <div className="text-center animate-in zoom-in duration-300 flex flex-col items-center">
+                <div className="mb-2 filter drop-shadow-[0_8px_20px_rgba(255,215,0,0.5)]">
+                  <GiftCardArt giftId={selectedGift.id} size={72} />
+                </div>
                 <span className="text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-pink-500 uppercase tracking-widest">
                   Rendering {selectedGift.name}
                 </span>
@@ -215,8 +220,10 @@ export const GiftManagementCMS: React.FC<GiftManagementCMSProps> = ({
                 </div>
               </div>
             ) : (
-              <div className="text-center text-slate-500">
-                <Wand2 className="w-8 h-8 mx-auto mb-2 opacity-40" />
+              <div className="text-center text-slate-500 flex flex-col items-center">
+                <div className="mb-2 opacity-60">
+                  <GiftCardArt giftId={selectedGift.id} size={48} />
+                </div>
                 <p className="text-xs">Preview canvas idle. Click "Simulate In-Room Blast" to test audio sync & graphics.</p>
               </div>
             )}

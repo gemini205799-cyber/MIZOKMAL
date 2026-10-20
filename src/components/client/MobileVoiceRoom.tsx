@@ -678,7 +678,7 @@ export const MobileVoiceRoom: React.FC<MobileVoiceRoomProps> = ({
                       {/* Micro Type Badges */}
                       {gift.isLucky && (
                         <span className="absolute top-1.5 right-1.5 px-1 py-0.2 bg-gradient-to-r from-red-600 to-amber-600 rounded text-[7.5px] font-black text-white uppercase shadow">
-                          50x
+                          {gift.luckyMultiplier ? `${gift.luckyMultiplier}x` : '500x'}
                         </span>
                       )}
                       {gift.isCombo && !gift.isLucky && (
@@ -697,7 +697,7 @@ export const MobileVoiceRoom: React.FC<MobileVoiceRoomProps> = ({
                         </span>
                       )}
 
-                      {/* 3D Rendered Vector Art (No flat text emojis!) */}
+                      {/* 3D Rendered Vector Art (Tencent libpag / SVGA standard) */}
                       <div className="relative my-0.5 group-hover:scale-110 transition-transform duration-200 flex items-center justify-center h-12">
                         <GiftCardArt giftId={gift.id} size={48} />
                       </div>
@@ -727,7 +727,7 @@ export const MobileVoiceRoom: React.FC<MobileVoiceRoomProps> = ({
                 <span className="text-white/40">•</span>
                 <span className="text-[#00F5A0] font-medium truncate max-w-[130px]">
                   {selectedGift.isLucky
-                    ? 'Lucky Cash-back up to 50x'
+                    ? `Lucky Cash-back up to ${selectedGift.luckyMultiplier || 500}x`
                     : selectedGift.category === 'luxury'
                     ? '3D SVGA & Engine Sound'
                     : selectedGift.category === 'vip'
@@ -744,7 +744,7 @@ export const MobileVoiceRoom: React.FC<MobileVoiceRoomProps> = ({
             <div className="flex items-center justify-between pt-1 mt-auto border-t border-white/10 gap-2">
               {/* Combo Preset Buttons */}
               <div className="flex items-center gap-1">
-                {[1, 10, 88, 520].map((num) => (
+                {[1, 10, 88, 520, 1314].map((num) => (
                   <button
                     key={num}
                     onClick={() => setComboMultiplier(num)}
